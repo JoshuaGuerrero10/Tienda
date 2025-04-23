@@ -1,15 +1,92 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
     </head>
     <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+        <div class="container">
+            <div class="row"></div>
+            <div class="row row-cols-6">
+                <a th:href="@{/}" class="btn btn-primary">
+                    <i class='fas fa-reply'></i> [[#{accion.regresar}]]
+                </a>
+            </div>
+            <div class="row"></div>
+            <div class="row row-cols-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        [[#{reporte.usuarios}]]
+                    </div>
+                    <div class="card-body">
+                        <a th:href="@{/reportes/usuarios?tipo=vPdf}" class="btn btn-primary">
+                            <i class='fas fa-eye'></i>
+                            <i class='fas fa-file-pdf'></i> PDF
+                        </a>
+                        <a th:href="@{/reportes/usuarios?tipo=Pdf}" class="btn btn-success">
+                            <i class='fas fa-download'></i>
+                            <i class='fas fa-file-pdf'></i> PDF
+                        </a>
+                        <a th:href="@{/reportes/usuarios?tipo=Xls}" class="btn btn-warning">
+                            <i class='fas fa-download'></i>
+                            <i class='fas fa-file-excel'></i> Excel
+                        </a>
+                        <a th:href="@{/reportes/usuarios?tipo=Csv}" class="btn btn-danger">
+                            <i class='fas fa-download'></i>
+                            <i class='fas fa-file-csv'></i> CSV
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header text-center">
+                        [[#{reporte.ventas}]]
+                    </div>
+                    <div class="card-body">
+                        <a th:href="@{/reportes/ventas?tipo=vPdf}" class="btn btn-primary">
+                            <i class="fas fa-eye"></i><i class="fas fa-file-pdf"></i>
+                        </a>
+                        <a th:href="@{/reportes/ventas?tipo=Pdf}" class="btn btn-success">
+                            <i class="fas fa-download"></i><i class="fas fa-file-pdf"></i>
+                        </a>
+                        <a th:href="@{/reportes/ventas?tipo=Xls}" class="btn btn-warning">
+                            <i class="fas fa-download"></i><i class="fas fa-file-excel"></i>
+                        </a>
+                        <a th:href="@{/reportes/ventas?tipo=Csv}" class="btn btn-danger">
+                            <i class="fas fa-download"></i><i class="fas fa-file-csv"></i>
+                        </a>
+                    </div>
+                </div>
+<div class="card">
+    <div class="card-header text-center">
+        [[#{reporte.ventas.totales}]]
+    </div>
+    <div class="card-body">
+        <div class="card-header">
+            <h4>Ventas Totales</h4>
+        </div>
+        <div class="card-body">
+            <form method="GET" th:action="@{/reportes/ventasTotales}" class="was-validated">
+                <div class="mb-3">
+                    <label for="fechaInicio">Fecha Inicio</label>
+                    <input type="date" class="form-control" name="fechaInicio" th:value="${fechaInicio}" required="true" />
+                </div>
+                <div class="mb-3">
+                    <label for="fechaFin">Fecha Fin</label>
+                    <input type="date" class="form-control" name="fechaFin" th:value="${fechaFin}" required="true" />
+                </div>
+                <div class="mb-3">
+                    <label for="tipo">Tipo</label>
+                    <select class="form-select" name="tipo">
+                        <option value="vPdf">Ver PDF</option>
+                        <option value="Pdf">Descargar PDF</option>
+                        <option value="Xls">Excel</option>
+                        <option value="Csv">CSV</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Generar Reporte
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
